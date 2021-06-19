@@ -8,10 +8,14 @@ package domain;
 public class AccountService {
     private String userAdam = "adam";
     private String userBetty = "betty";
+    private String password = "password";
     
     public User login(String username, String password) {
-        
-        return null;
+        if ((username.equals(userAdam) && password.equals(this.password)) || (username.equals(userBetty) && password.equals(this.password))) {
+            return new User(username, null);
+        }
+        else {
+            return null;
+        }
     }
-    
 }
