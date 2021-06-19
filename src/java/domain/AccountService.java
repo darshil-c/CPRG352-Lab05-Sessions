@@ -9,4 +9,9 @@ public class AccountService {
     private String userAdam = "adam";
     private String userBetty = "betty";
     
+    public User login(String username, String password) {
+        
+        return null;
+    }
+    
 }
