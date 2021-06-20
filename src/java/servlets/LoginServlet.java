@@ -19,7 +19,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       // session object
        HttpSession session = request.getSession();
+       // get logout parameter
        String logout = request.getParameter("logout");
        
        // check if the user has logged out
@@ -43,26 +45,32 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        // session object
         HttpSession session = request.getSession();
         
+        // get username and password parameters
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
+        // set the username and password as the one entered in the fields
         request.setAttribute("username", username);
         request.setAttribute("password", password);
         
-        if (!username.equals("") || !password.equals("")) {
+        // check if username or password are empty
+        if (!username.equals("") && !password.equals("")) {
+            // validate login info
             AccountService aServ = new AccountService();
             User user = aServ.login(username, password);
+            // if a valid user was created redirect the user to home
             if (user != null) {
                 session.setAttribute("username", username);
                 response.sendRedirect("home");
+            // if not ask the user to enter valid fields
             } else {
                 request.setAttribute("message", "Incorrect Username or Password.");
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             }
-            
+        // if the username or password is left empty ask user to check fields
         } else {
             request.setAttribute("message", "Make sure your inputs are not empty.");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
