@@ -4,7 +4,7 @@ package domain;
  *
  * @author Chaudhari
  */
-class User {
+public class User {
     private String username;
     private String password;
     
